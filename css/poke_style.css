@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
+nav {
+  height: 100%;
+  width: 22%;
+  position: fixed;
+  padding-top: 1.5rem;
+  background-color: #efefef;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.nav-button {
+  height: 45px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 1.3em;
+  font-family: system-ui;
+  font-weight: 400;
+  color: #666;
+  font-size: 28;
+  text-decoration: none;
+}
+
+.cl {
+  color: ghostwhite;
+}
+
+.cards-container {
+  width: 78%;
+  margin-left: 22%;
+  height: 100%;
+  background-color: ghostwhite;
+  padding: 1.5rem 2rem;
+  gap: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 275px;
+  height: 450px;
+  border: 2px solid #d7d6d6;
+  background-color: #efefef;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.5em;
+  transition: 1s;
+}
+
+.card:hover {
+  box-shadow: 2px 2px 10px black;
+  transition: 1s;
+}
+
+.image-container {
+  width: 100%;
+  height: 55%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(214 8% 84% / 1);
+}
+
+.image-container img {
+  height: auto;
+  width: 70%;
+}
+
+.header {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pokemon-name {
+  font-family: sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #777;
+  display: inline-block;
+}
+
+.pokemon-type {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+.type-name {
+  font-family: sans-serif;
+  font-size: 16px;
+  color: aliceblue;
+  font-weight: 400;
+  display: inline-block;
+  padding: 0.2rem;
+  border-radius: 5px;
+}
+
+.pokemon-type {
+  display: flex;
+}
+
+.attributes {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap : 0.3rem;
+  line-height: 1.3em;
+}
+
+.attribute {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid hsl(214 8% 84% / 1);
+  font-family: system-ui;
+}
+
+.attribute:last-child {
+   border-bottom: 0;
+}
+
+.attribute .name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+}
+
+.attribute .value {
+  font-size: 16px;
+  font-weight: 300;
+  color: #555;
+}
