@@ -19,6 +19,23 @@ nav {
   overflow: hidden;
 }
 
+nav > form {
+  text-align: center;
+  padding-left: 1.3rem;
+}
+
+nav > form > input{
+  height: 40px;
+  font-size: 20px;
+  width: 60%;
+  margin: 10px;
+}
+
+#search-button {
+      height: 40px;
+      font-size: 20px;
+}
+
 .nav-button {
   height: 45px;
   width: 100%;
@@ -43,7 +60,7 @@ nav {
   height: 100%;
   background-color: ghostwhite;
   padding: 1.5rem 2rem;
-  gap: 2rem;
+  gap: 5rem;
   display: flex;
   flex-wrap: wrap;
 }
