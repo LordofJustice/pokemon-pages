@@ -13,17 +13,19 @@
         <input type="text" required name="search" placeholder="pokemon">
         <button type="submit" id="search-button">🔍</button>
       </form>
-      <% it.types.forEach((t)=> { %>
-        <% if (t !==it.type) { %>
-          <a href="/pokemons?type=<%= t %>" class="nav-button">
-            <%= t %>
-          </a>
-          <% } else { %>
-            <a href="/pokemons?type=<%= t %>" class="nav-button <%= t %> cl">
+      <div>
+        <% it.types.forEach((t)=> { %>
+          <% if (t !==it.type) { %>
+            <a href="/pokemons?type=<%= t %>" class="nav-button">
               <%= t %>
             </a>
-            <% } %>
-      <% }) %>
+            <% } else { %>
+              <a href="/pokemons?type=<%= t %>" class="nav-button <%= t %> cl">
+                <%= t %>
+              </a>
+              <% } %>
+                <% }) %>
+      </div>
     </nav>
     <section class="cards-container">
       <% it.pokemons.forEach((pokemon)=> { %>

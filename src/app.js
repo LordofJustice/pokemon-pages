@@ -23,7 +23,7 @@ const servePokemonPage = (c) => {
 };
 
 const showAllPokemons = (c) => {
-  return c.redirect("/pokemon?type=all")
+  return c.redirect("/pokemons?type=all")
 }
 
 export const createApp = (pokemons, types, eta) => {
