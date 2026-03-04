@@ -1,3 +1,19 @@
+const createFragment = ([tag, attributes, ...content]) => {
+  const element = document.createElement(tag);
+  for (const [name, value] of Object.entries(attributes)) {
+    element.setAttribute(name, value);
+  }
+
+  if ( typeof content[0] === "string" || typeof content[0] === 'number') {
+    console.log(content)
+    element.append(...content)
+    return element;
+  }
+
+  element.append(...content.map(createFragment));
+  return element;
+}
+
 const createSideBarElement = (type, currentType) => {
   const anchor = document.createElement("a");
   anchor.setAttribute("href", `/pokemons?type=${type}`);
@@ -14,73 +30,37 @@ const createSideBarElement = (type, currentType) => {
 export const createSideBarElements = (types, currentType) => 
   types.map((type) => createSideBarElement(type, currentType));
 
-const createImageContainer = (img, name) => {
-  const imageContainer = document.createElement('div');
-  imageContainer.className = "image-container";
+const typesElements = (types) => types.map((type) => createFragment(['div', {class : `type-name ${type}`}, type]));
 
-  const image = document.createElement("img");
-  image.setAttribute('src', img);
-  image.setAttribute('alt', name);
-  imageContainer.appendChild(image);
-  return imageContainer;
-}
-
-const createPokemonTypes = (types) => {
-  const pokemonTypes = document.createElement("div");
-  pokemonTypes.className = "pokemon-types";
-  types.forEach(type => {
-    const row = document.createElement('div');
-    row.innerText = type;
-    row.classList.add("type-name", type);
-    pokemonTypes.appendChild(row);
-  })
-  return pokemonTypes;
-}
-
-const createHeader = (name, types) => {
-  const header = document.createElement('div');
-  header.className = "header";
-  const pokemonName = document.createElement('h3');
-  pokemonName.innerText = name;
-  pokemonName.className = "pokemon-name";
-  const pokemonTypes = createPokemonTypes(types)
-  header.append(pokemonName, pokemonTypes);
-  return header;
-};
-
-const createStat = (name, value) => {
-  const stat = document.createElement('div');
-  stat.className = 'attribute';
-
-  const statName = document.createElement('div');
-  statName.className = "name";
-  statName.innerText = name;
-
-  const statValue = document.createElement('div');
-  statValue.className = "value";
-  statValue.innerText = value;
-  stat.append(statName, statValue);
+const createStat = ({statName, value}) => {
+  const nameElement = createFragment(['div', {class : 'name'}, statName])
+  const statElement = createFragment(['div', {class : 'value'}, value])
+  const stat = createFragment(['div', {class : "attribute"}, "", nameElement, statElement])
   return stat;
 }
 
-const createStats = (stats) => {
-  const attributes = document.createElement('div')
-  attributes.className = "attributes";
-  stats.forEach(({statName, value}) => {
-    const stat = createStat(statName , value);
-    attributes.appendChild(stat);
-  });
-  return attributes;
-}
-
 const createCard = ({name, stats, types, image}) => {
-  const card = document.createElement('div');
-  card.className = "card";
-  const imageContainer = createImageContainer(image, name)
-  const header = createHeader(name, types);
-  const statsTable = createStats(stats);
-  card.append(imageContainer, header, statsTable)
-  return card;
+  const typesEl = typesElements(types);
+  const attributes = stats.map((stat) => createStat(stat));
+  const card1 = [
+    'div', {class : 'card'}, 
+    [
+      "div", {class : 'image-container'}, ["img", {src: image, alt: name}, ""]
+    ],
+    [
+      "div", {class : 'header'},
+      [
+        "h3", {class : 'pokemon-name'}, name
+      ], 
+      [
+        'div', {class : "pokemon-types"}, "", ...typesEl
+      ]
+    ],
+    [
+      'div', {class : 'attributes'}, "", ...attributes
+    ]
+  ];
+  return createFragment(card1);
 }
 
 export const createAllCards = (pokemons) => pokemons.map(createCard);

@@ -25,7 +25,7 @@ const updateSideBar = (types, currentType) => {
 window.onload = async () => {
   const currentType = "all";
   const types = await fetch("/data/types.json").then((r) => r.json());
-  const pokemons = await fetch("/data/pokemons.json").then((r) => r.json());
+  const pokemons = await fetch(`/pokemons?type=${currentType}`).then((r) => r.json());
   addCardsAndSidebar(pokemons, types, currentType);
 
   const searchBar = document.getElementById('search-bar');

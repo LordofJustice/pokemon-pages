@@ -2,10 +2,9 @@ import { Hono } from "hono";
 import { serveStatic } from "hono/deno";
 import { logger } from "hono/logger";
 
-const servePokemonByName = (c) => {
+const getPokemons = (c) => {
   const pokemons = c.get('pokemons');
   const {type, name} = c.req.query();
-  console.log(type, name)
   const filteredPokemons = pokemons.filter((pokemon) => {
     return pokemon.types.includes(type) || pokemon.name.includes(name) || type === 'all'
   })
@@ -37,7 +36,7 @@ export const createApp = (pokemons, types) => {
   });
   
   app.get('/', homePage)
-  app.get("/pokemons", servePokemonByName);
+  app.get("/pokemons", getPokemons);
   app.get("/css/*", serveStatic({root: "public"}))
   app.get("/js/*", serveStatic({root: "public"}))
   app.get("/data/pokemons.json", servePokemonsData)
