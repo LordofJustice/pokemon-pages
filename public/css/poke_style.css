@@ -33,7 +33,8 @@ nav > form > input{
 
 #search-button {
       height: 40px;
-      font-size: 20px;
+      font-size: 30px;
+      border: none;
 }
 
 .nav-button {
@@ -128,10 +129,7 @@ nav > form > input{
   display: inline-block;
   padding: 0.2rem;
   border-radius: 5px;
-}
-
-.pokemon-type {
-  display: flex;
+  margin-right: 4px;
 }
 
 .attributes {

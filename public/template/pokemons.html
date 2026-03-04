@@ -1,64 +1,23 @@
 <html>
-
 <head>
   <title>Pokedex</title>
   <link rel="stylesheet" href="/css/colors.css">
   <link rel="stylesheet" href="/css/poke_style.css">
 </head>
-
+<script type="module" src="/js/pokemonPage.js" defer ></script>
 <body>
-  <main class="container">
+  <main class="container" id="container">
     <nav>
-      <form action="/pokemons" method="GET">
-        <input type="text" required name="search" placeholder="pokemon">
+      <form action="/pokemons" method="GET" id="search-bar">
+        <input type="text" required name="name" placeholder="pokemon">
         <button type="submit" id="search-button">🔍</button>
       </form>
-      <div>
-        <% it.types.forEach((t)=> { %>
-          <% if (t !==it.type) { %>
-            <a href="/pokemons?type=<%= t %>" class="nav-button">
-              <%= t %>
-            </a>
-            <% } else { %>
-              <a href="/pokemons?type=<%= t %>" class="nav-button <%= t %> cl">
-                <%= t %>
-              </a>
-              <% } %>
-                <% }) %>
+      <div id="side-bar">
+        <!-- nav buttons -->
       </div>
     </nav>
-    <section class="cards-container">
-      <% it.pokemons.forEach((pokemon)=> { %>
-        <div class="card">
-          <div class="image-container">
-            <img src="<%= pokemon.image %>" alt="<%= pokemon.name %>">
-          </div>
-          <div class="header">
-            <h3 class="pokemon-name">
-              <%= pokemon.name%>
-            </h3>
-            <div class="pokemon-types">
-              <% pokemon.types.forEach(type=> { %>
-                <div class="type-name <%= type %>">
-                  <%= type %>
-                </div>
-                <% }); %>
-            </div>
-          </div>
-          <div class="attributes">
-            <% pokemon.stats.forEach(stat=> { %>
-              <div class="attribute">
-                <div class="name">
-                  <%= stat.statName %>
-                </div>
-                <div class="value">
-                  <%= stat.value%>
-                </div>
-              </div>
-              <% }) %>
-          </div>
-        </div>
-        <% }) %>
+    <section class="cards-container" id="cards-container">
+      <!-- pokemon cards -->
     </section>
   </main>
 </body>

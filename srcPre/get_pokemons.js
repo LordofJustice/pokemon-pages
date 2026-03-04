@@ -1,11 +1,11 @@
 const pokeApi = (pokemonId) => `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
 
-const capitaliseWord = (word) => word.slice(0, 1).toUpperCase() + word.slice(1);
+const capitalizeWord = (word) => word.slice(0, 1).toUpperCase() + word.slice(1);
 
 const getBaseStats = (pokemon) =>
   pokemon.stats.map(
     ({ base_stat, stat }) => ({
-      statName: capitaliseWord(stat.name),
+      statName: capitalizeWord(stat.name),
       value: base_stat,
     }),
   ).filter((stat) => !["Special-attack", "Special-defense"].includes(stat.statName));

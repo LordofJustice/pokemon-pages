@@ -2,42 +2,45 @@ import { Hono } from "hono";
 import { serveStatic } from "hono/deno";
 import { logger } from "hono/logger";
 
-const servePokemonPage = (c) => {
-  const pokemons = c.get("pokemons");
-  const requestedType = c.req.query("type");
-  const types = c.get("types");
-  const searched = c.req.query("search")
-  console.log({specific: searched, requestedType})
-  const filteredPokemons = pokemons.filter(({ types, name }) =>
-    requestedType === "all" || types.includes(requestedType) || name.includes(searched)
-  );
-
-  const eta = c.get("eta");
-  const page = eta.render("./pokemons.html", {
-    pokemons: filteredPokemons,
-    type: requestedType,
-    types,
-  });
-
-  return c.html(page);
+const servePokemonByName = (c) => {
+  const pokemons = c.get('pokemons');
+  const {type, name} = c.req.query();
+  console.log(type, name)
+  const filteredPokemons = pokemons.filter((pokemon) => {
+    return pokemon.types.includes(type) || pokemon.name.includes(name) || type === 'all'
+  })
+  return c.json(filteredPokemons);
 };
 
-const showAllPokemons = (c) => {
-  return c.redirect("/pokemons?type=all")
+const homePage = (c) => {
+  const page = Deno.readTextFileSync('./public/template/pokemons.html')
+  return c.html(page);
 }
 
-export const createApp = (pokemons, types, eta) => {
+const servePokemonsData = (c) => {
+  const pokemons = c.get('pokemons');
+  return c.json(pokemons);
+}
+
+const servePokemonsTypes = (c) => {
+  const types = c.get('types');
+  return c.json(types);
+}
+
+export const createApp = (pokemons, types) => {
   const app = new Hono();
   app.use(logger());
   app.use(async (c, next) => {
     c.set("types", types);
     c.set("pokemons", pokemons);
-    c.set("eta", eta);
     await next();
   });
-
-  app.get('/', showAllPokemons)
-  app.get("/pokemons", servePokemonPage);
+  
+  app.get('/', homePage)
+  app.get("/pokemons", servePokemonByName);
   app.get("/css/*", serveStatic({root: "public"}))
+  app.get("/js/*", serveStatic({root: "public"}))
+  app.get("/data/pokemons.json", servePokemonsData)
+  app.get("/data/types.json", servePokemonsTypes)
   return app;
 };
