@@ -5,7 +5,6 @@ const createFragment = ([tag, attributes, ...content]) => {
   }
 
   if ( typeof content[0] === "string" || typeof content[0] === 'number') {
-    console.log(content)
     element.append(...content)
     return element;
   }
@@ -15,10 +14,7 @@ const createFragment = ([tag, attributes, ...content]) => {
 }
 
 const createSideBarElement = (type, currentType) => {
-  const anchor = document.createElement("a");
-  anchor.setAttribute("href", `/pokemons?type=${type}`);
-  anchor.innerText = type;
-  anchor.classList.add("nav-button");
+  const anchor = createFragment(["a", {class : "nav-button"}, type])
 
   if (type === currentType) {
     anchor.classList.add(type, "cl")
@@ -35,8 +31,7 @@ const typesElements = (types) => types.map((type) => createFragment(['div', {cla
 const createStat = ({statName, value}) => {
   const nameElement = createFragment(['div', {class : 'name'}, statName])
   const statElement = createFragment(['div', {class : 'value'}, value])
-  const stat = createFragment(['div', {class : "attribute"}, "", nameElement, statElement])
-  return stat;
+  return createFragment(['div', {class : "attribute"}, "", nameElement, statElement])
 }
 
 const createCard = ({name, stats, types, image}) => {
